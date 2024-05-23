@@ -12,17 +12,24 @@ def compositions(n):
     backtrack([], n)
     return result
 
-# Example usage:
-number = 4
-all_compositions = compositions(number)
 
-
+# 1,3,2 = reflectional + translational? it is caught in the second part here
 def is_translational_symmetric(composition):
-    n = len(composition)
-    for i in range(1, n):
-        if composition[i:] + composition[:i] == composition:
-            return True
-    # What about the one below for odd lengths?
+    # First test is there is a reccuring n-gram:
+    for size in range(1,int(len(composition)/2+1)):
+        if len(composition)%size == 0:
+            splits = []
+            # make same sized splits
+            for split in range(0, len(composition), size):
+                splits.append('-'.join([str(x) for x in composition[split:split+size]]))
+            # If they are all the same, return True
+            if len(set(splits)) == 1:
+                return True
+
+    # We introduce a split in the middle by creating a first
+    # and last chunk. The middle subword will be included in both
+    # This should catch cases like 1,3,2 and 2,3,1 (which are 1,2,1,2 after 
+    # the new split
     middle = int(sum(composition)/2)
     cur = 0
     for posIdx, length in enumerate(composition):
@@ -38,27 +45,21 @@ def is_translational_symmetric(composition):
     return first == last
 
 def is_reflectional_symmetric(composition):
-    if len(composition)%2 == 1:
-        split = int(len(composition)/2)
-        composition = composition[:split] + composition[split+1:]
-    return composition == composition[::-1]
+    return composition == list(reversed(composition))
 print('number', 'numCompositions', 'trans', 'reflect', 'total')
 
 # Example usage:
 for number in range(1,20):
+    if number%2 != 0:
+        continue
+
     is_trans = 0
     is_reflect = 0
     is_sym = 0
     all_compositions = compositions(number)
     for composition in all_compositions:
-        #print("Composition:", composition)
-        #print("Translational Symmetry:", is_translational_symmetric(composition))
-        #print("Reflectional Symmetry:", is_reflectional_symmetric(composition))
-        #print()
         if is_translational_symmetric(composition):
             is_trans += 1
-            #if number == 8:
-            #    print(composition)
 
         if is_reflectional_symmetric(composition):
             is_reflect += 1
@@ -67,7 +68,5 @@ for number in range(1,20):
             #    print(composition)
             is_sym += 1
 
-    #print(number, is_trans, is_reflect, is_sym)
-    if number%2 == 0:
-        print(number, len(all_compositions), is_trans, is_reflect, is_sym)
+    print(number, len(all_compositions), is_trans, is_reflect, is_sym)
 

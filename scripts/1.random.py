@@ -41,7 +41,7 @@ def gen_random_results(out_path, lang_file, seed, long_line, delim, valid_ids, n
     result = ''.join(new_array)
 
     if not os.path.exists(out_path):
-        os.mkdirs(out_path)
+        os.makedirs(out_path)
 
     with open(out_file, 'w') as f_result:
         f_result.write('word_split\tsegments_lengths\tword_length\tindex\n')

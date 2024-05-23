@@ -31,9 +31,9 @@ langs = ['basque', 'eng', 'finnish', 'french', 'german', 'greek_modern',
          'mandarin', 'persian', 'russian', 'spanish', 'tagalog', 'thai',
          'turkish', 'vietnamese']
 
-f_sym = open('../symmetry_results/hr_19lang/bpe-mr/symmetric.txt', 'w')
-f_total = open('../symmetry_results/hr_19lang/bpe-mr/total.txt', 'w')
-f_proportions = open('../symmetry_results/hr_19lang/bpe-mr/proportions.txt', 'w')
+f_sym = open('../symmetry_proportions/hr_19lang/bpe-mr/symmetric.txt', 'w')
+f_total = open('../symmetry_proportions/hr_19lang/bpe-mr/total.txt', 'w')
+f_proportions = open('../symmetry_proportions/hr_19lang/bpe-mr/proportions.txt', 'w')
 
 
 with open('../symmetry_results/patterns_freq/hr_19lang.txt', 'w') as f_patterns:
