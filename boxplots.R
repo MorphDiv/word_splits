@@ -1,6 +1,6 @@
 library(ggplot2)
 
-df <- read.csv('../baseline_files/aalto_3lang/5_random_seeds/aalto_5seeds.csv', sep='\t')
+df <- read.csv('random_baselines/aalto_3lang/5_random_seeds/aalto_5seeds.csv', sep='\t')
 
 df
 df$setting <- factor(df$setting, levels = c('BPE-MR', 'BPE-V', 'WP', 'SPM', 'Morfessor', 'Manual'))

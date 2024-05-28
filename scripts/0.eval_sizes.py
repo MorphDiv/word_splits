@@ -30,19 +30,20 @@ def is_translational_symmetric(composition):
     # and last chunk. The middle subword will be included in both
     # This should catch cases like 1,3,2 and 2,3,1 (which are 1,2,1,2 after 
     # the new split
-    middle = int(sum(composition)/2)
-    cur = 0
-    for posIdx, length in enumerate(composition):
-        cur += length
-        if cur == middle:
-            first = composition[:posIdx]
-            last = composition[posIdx:]
-            break
-        if cur > middle:
-            first = composition[:posIdx] + [middle-(cur-length)]
-            last = [cur - middle] + composition[posIdx+1:]
-            break
-    return first == last
+    #middle = int(sum(composition)/2)
+    #cur = 0
+    #for posIdx, length in enumerate(composition):
+    #    cur += length
+    #    if cur == middle:
+    #        first = composition[:posIdx]
+    #        last = composition[posIdx:]
+    #        break
+    #    if cur > middle:
+    #        first = composition[:posIdx] + [middle-(cur-length)]
+    #        last = [cur - middle] + composition[posIdx+1:]
+    #        break
+    #return first == last
+    return False
 
 def is_reflectional_symmetric(composition):
     return composition == list(reversed(composition))
