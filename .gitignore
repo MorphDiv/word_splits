@@ -1,0 +1,12 @@
+__pycache__
+random_baselines/
+segmentations_data/
+symmetry_proportions/
+upper_angle_values/
+random_baselines-20240506T124921Z-001.zip
+segmentations_data-20240507T052705Z-003.zip
+segmentations_data-20240507T052705Z-001.zip
+symmetry_proportions-20240506T124810Z-001.zip
+segmentations_data-20240507T052705Z-002.zip
+upper_angle_values-20240506T124809Z-001.zip
+*swp

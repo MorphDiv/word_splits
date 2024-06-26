@@ -50,7 +50,7 @@ def is_reflectional_symmetric(composition):
 print('number', 'numCompositions', 'trans', 'reflect', 'total')
 
 # Example usage:
-for number in range(1,20):
+for number in range(1,22):
     if number%2 != 0:
         continue
 
