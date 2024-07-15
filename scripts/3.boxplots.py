@@ -13,14 +13,16 @@ def dataset2boxplot(dataset, setting):
         tok = line.strip().split('\t')
         method = tok[1]
         lang = tok[2]
-        buckets = [float(x) for x in tok[-5:]]
+        buckets = tok[-5:]
         if method not in boxplots:
             boxplots[method] = [buckets]
         else:
             boxplots[method].append(buckets)
     fig, ax = plt.subplots(figsize=(8,5), dpi=300)
     colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
-    for methodIdx, method in enumerate(boxplots):
+    for methodIdx, method in enumerate(myutils.settings):
+        if method not in boxplots:
+            continue
         # transpose
         data = list(map(list, zip(*boxplots[method])))
         # remove empty items
@@ -28,6 +30,8 @@ def dataset2boxplot(dataset, setting):
             for j in reversed(range(len(data[i]))):
                 if data[i][j] == '--':
                     del data[i][j]
+                else:
+                    data[i][j] = float(data[i][j])
 
         positions = [.15+i + methodIdx * .15 for i in range(len(data))]
         print(dataset,method, data)
@@ -41,13 +45,14 @@ def dataset2boxplot(dataset, setting):
         for patch, color in zip(bp['boxes'], colors):
             patch.set_facecolor(fill_color)
         plt.xticks(range(6))
+        ax.set_xticklabels(['' for _ in range(6)])
 
     ax.set_xlim((0,5))
     leg = ax.legend()
     leg.get_frame().set_linewidth(1.5)
     fig.savefig('boxplots-' + dataset + '-' + setting + '.pdf', bbox_inches='tight')
 
-dataset2boxplot('aalto_3lang', 'strict')
-#for dataset in myutils.datasets:
-#    dataset2boxplot(dataset, 'strict')
-#    dataset2boxplot(dataset, 'notstrict')
+#dataset2boxplot('aalto_3lang', 'strict')
+for dataset in myutils.datasets:
+    dataset2boxplot(dataset, 'strict')
+    dataset2boxplot(dataset, 'notstrict')

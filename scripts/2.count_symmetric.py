@@ -33,6 +33,8 @@ for strict in [True, False]:
                 totalcounts = [0,0]
                 for word_parts in segments:
                     symmetric = myutils.is_symmetric(word_parts, strict)
+                    if symmetric == None:
+                        continue
                     totalcounts[int(symmetric)] += 1
                     length = sum(word_parts)
                     if length < 5:
@@ -78,6 +80,8 @@ for strict in [True, False]:
                     totalcounts = [0,0]
                     for word_parts in segments:
                         symmetric = myutils.is_symmetric(word_parts, strict)
+                        if symmetric == None:
+                            continue
                         totalcounts[int(symmetric)] += 1
                         length = sum(word_parts)
                         if length < 5:

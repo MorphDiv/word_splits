@@ -41,5 +41,5 @@ def is_reflectional_symmetric(composition):
 
 def is_symmetric(composition, strict):
     if strict and (len(composition) == 1 or set(composition) == {1}):
-        return False
+        return None
     return is_reflectional_symmetric(composition) or is_translational_symmetric(composition)
