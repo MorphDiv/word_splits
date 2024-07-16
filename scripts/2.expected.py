@@ -16,7 +16,7 @@ def compositions(n):
     return result
 
 
-max_len = 20
+max_len = 24
 
 for strict in [True, False]:
     lookup = {}
@@ -54,7 +54,7 @@ for strict in [True, False]:
         for lang_file in os.listdir(setting_path):
             if not lang_file.endswith('_results.csv'):
                 continue
-                
+            print('\t' + lang_file)
             lang = lang_file.split('_')[0]
             lengths = [int(x.split('\t')[2]) for x in open(setting_path + '/' + lang_file).readlines()[1:]]
 
@@ -64,6 +64,7 @@ for strict in [True, False]:
                     expectation = lookup[word_length]
                 else:
                     expectation = lookup[max_len]
+
                 if word_length < 5:
                     buckets[0].append(expectation)
                 elif word_length < 9:
@@ -74,54 +75,9 @@ for strict in [True, False]:
                     buckets[3].append(expectation)
                 else:
                     buckets[4].append(expectation)
-                for bucketIdx, bucket in enumerate(buckets):
-                    out_file.write('\t'.join([lang, str(bucketIdx), str(bucket)]) + '\n')
+            for bucketIdx, bucket in enumerate(buckets):
+                out_file.write('\t'.join([lang, str(bucketIdx), str(bucket)]) + '\n')
         out_file.close()
     
     
     
-    data_dir = 'random_baselines'
-    
-    for dataset in myutils.datasets:
-        out_dir = os.path.join(tgt_dir, dataset)
-        if not os.path.isdir(out_dir):
-            os.makedirs(out_dir)
-    
-        out_file = open(os.path.join(out_dir, 'symmetric_baselines.txt'), 'w')
-        print(os.path.join(out_dir, 'symmetric_baselines.txt'))
-        for seed in myutils.seeds:
-            for setting in myutils.settings:
-                in_dir = os.path.join(data_dir, dataset, '5_random_seeds', str(seed), setting)
-                if not os.path.isdir(in_dir):
-                    continue
-        
-                for lang_file in os.listdir(in_dir):
-                    if not lang_file.endswith('_baseline.csv'):
-                        continue
-                    lang = lang_file.split('_')[0]
-                    segments = [eval(x.split('\t')[1]) for x in open(in_dir + '/' + lang_file).readlines()[1:]]
-    
-                    buckets = [[0,0], [0,0], [0,0], [0,0], [0,0]]
-                    totalcounts = [0,0]
-                    for word_parts in segments:
-                        symmetric = myutils.is_symmetric(word_parts, strict)
-                        if symmetric == None:
-                            continue
-                        totalcounts[int(symmetric)] += 1
-                        length = sum(word_parts)
-                        if length < 5:
-                            buckets[0][int(symmetric)] += 1
-                        elif length < 9:
-                            buckets[1][int(symmetric)] += 1
-                        elif length < 13:
-                            buckets[2][int(symmetric)] += 1
-                        elif length < 17:
-                            buckets[3][int(symmetric)] += 1
-                        else:
-                            buckets[4][int(symmetric)] += 1
-                    buckets = ['--' if x+y < 3 else y/(x+y) for x, y in buckets]
-                    data = [dataset, setting, lang, str(seed), totalcounts[1]/sum(totalcounts)] + buckets
-                    data = [str(x) for x in data]
-                    out_file.write('\t'.join(data) + '\n')
-                    
-        out_file.close()
