@@ -52,7 +52,7 @@ def dataset2boxplot(dataset, setting):
         # subtract
         for i in range(len(data)):
             for j in reversed(range(len(data[i]))):
-                if data[i][j] == '--':
+                if data[i][j] == '--' or baseline_data[i][j] == '--':
                     del data[i][j]
                 else:
                     print(data[i][j], baseline_data[i][j])
