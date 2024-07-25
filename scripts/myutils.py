@@ -1,5 +1,5 @@
-settings = ['manual', 'spm', 'wordpiece',
-            'bpe-mr', 'bpe04V', 'morf']
+settings = ['bpe-mr', 'bpe04V', 'wordpiece', 'spm', 'morf', 'manual']
+names = ['BPE-MR', 'BPE-V', 'WP', 'SPM', "Morfessor", 'Manual']
 datasets = ['aalto_3lang', 'hr_19lang', 'lr_13lang']
 seeds = [1,2,3,4,5]
 

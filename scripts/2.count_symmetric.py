@@ -77,7 +77,7 @@ for strict in [True, False]:
                     lang = lang_file.split('_')[0]
                     segments = [eval(x.split('\t')[1]) for x in open(in_dir + '/' + lang_file).readlines()[1:]]
     
-                    buckets = [[0,0], [0,0], [0,0], [0,0], [0,0]]
+                    buckets = [[0,0], [0,0], [0,0], [0,0]]
                     totalcounts = [0,0]
                     for word_parts in segments:
                         symmetric = myutils.is_symmetric(word_parts, strict)
@@ -85,16 +85,16 @@ for strict in [True, False]:
                             continue
                         totalcounts[int(symmetric)] += 1
                         length = sum(word_parts)
-                        if length < 5:
+                        if length < 4:
+                            continue
+                        elif length < 8:
                             buckets[0][int(symmetric)] += 1
-                        elif length < 9:
+                        elif length < 12:
                             buckets[1][int(symmetric)] += 1
-                        elif length < 13:
+                        elif length < 16:
                             buckets[2][int(symmetric)] += 1
-                        elif length < 17:
-                            buckets[3][int(symmetric)] += 1
                         else:
-                            buckets[4][int(symmetric)] += 1
+                            buckets[3][int(symmetric)] += 1
                     buckets = ['--' if x+y < 3 else y/(x+y) for x, y in buckets]
                     data = [dataset, setting, lang, str(seed), totalcounts[1]/sum(totalcounts)] + buckets
                     data = [str(x) for x in data]

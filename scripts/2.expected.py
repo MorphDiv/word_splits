@@ -58,23 +58,23 @@ for strict in [True, False]:
             lang = lang_file.split('_')[0]
             lengths = [int(x.split('\t')[2]) for x in open(setting_path + '/' + lang_file).readlines()[1:]]
 
-            buckets = [[], [], [], [], []]
+            buckets = [[], [], [], []]
             for word_length in lengths:
                 if word_length in lookup:
                     expectation = lookup[word_length]
                 else:
                     expectation = lookup[max_len]
 
-                if word_length < 5:
+                if word_length < 4:
+                    continue
+                elif word_length < 8:
                     buckets[0].append(expectation)
-                elif word_length < 9:
+                elif word_length < 12:
                     buckets[1].append(expectation)
-                elif word_length < 13:
+                elif word_length < 16:
                     buckets[2].append(expectation)
-                elif word_length < 17:
-                    buckets[3].append(expectation)
                 else:
-                    buckets[4].append(expectation)
+                    buckets[3].append(expectation)
             for bucketIdx, bucket in enumerate(buckets):
                 out_file.write('\t'.join([lang, str(bucketIdx), str(bucket)]) + '\n')
         out_file.close()
