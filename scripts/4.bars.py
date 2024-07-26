@@ -79,12 +79,17 @@ def dataset2boxplot(datasets, setting):
         for bucket_idx in range(len(observed)):
             observed[bucket_idx] = (avg(observed[bucket_idx]) - avg(expected[bucket_idx])) / avg(expected[bucket_idx])
             baseline[bucket_idx] = (avg(baseline[bucket_idx]) - avg(expected[bucket_idx])) / avg(baseline[bucket_idx])
-        positions = [.125+i + methodIdx * .15 for i in range(len(observed))]
-        ax.bar(positions, observed, width=.15, label=myutils.names[methodIdx], linewidth=1, edgecolor='black')
+        positions = [.175+i + methodIdx * .125 for i in range(len(observed))]
+        ax.bar(positions, observed, width=.125, color='#' + colors[methodIdx], label=myutils.names[methodIdx], linewidth=1, edgecolor='black')
+        #if methodIdx == len(myutils.settings)-1:
+        #    ax.bar(positions, baseline, width=.075, color='grey', alpha=.5, linewidth=1, edgecolor='black', label='baseline')
+        #else:
+        #    ax.bar(positions, baseline, width=.075, color='grey', alpha=.5, linewidth=1, edgecolor='black')
+        for x_val, y_val in zip(positions, baseline):
+            ax.plot([x_val, x_val], [0, y_val], color='black')
         if methodIdx == len(myutils.settings)-1:
-            ax.bar(positions, baseline, width=.075, color='grey', alpha=.5, linewidth=1, edgecolor='black', label='baseline')
-        else:
-            ax.bar(positions, baseline, width=.075, color='grey', alpha=.5, linewidth=1, edgecolor='black')
+            ax.plot([-5], [0], color='black', label='Baseline')
+
 
 
     #plt.xticks(range(4))
@@ -94,12 +99,11 @@ def dataset2boxplot(datasets, setting):
 
     ax.set_xlim((0,4))
     ax.set_ylabel('% symmetry vs expected')
-    ax.set_xlabel('Buckets')
+    ax.set_xlabel('Length in characters')
     ax.set
     leg = ax.legend()
     leg.get_frame().set_linewidth(1.5)
     fig.savefig('boxplots-' + datasets[0] + '-' + setting + '.pdf', bbox_inches='tight')
-    exit(1)
 #dataset2boxplot('aalto_3lang', 'strict')
 
 #for dataset in myutils.datasets:
