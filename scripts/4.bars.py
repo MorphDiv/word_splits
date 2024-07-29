@@ -80,13 +80,13 @@ def dataset2boxplot(datasets, setting):
             observed[bucket_idx] = (avg(observed[bucket_idx]) - avg(expected[bucket_idx])) / avg(expected[bucket_idx])
             baseline[bucket_idx] = (avg(baseline[bucket_idx]) - avg(expected[bucket_idx])) / avg(baseline[bucket_idx])
         positions = [.175+i + methodIdx * .125 for i in range(len(observed))]
-        ax.bar(positions, observed, width=.125, color='#' + colors[methodIdx], label=myutils.names[methodIdx], linewidth=1, edgecolor='black')
+        ax.bar(positions, observed, width=.125, color='#' + colors[methodIdx], label=myutils.names[methodIdx])#, linewidth=1, edgecolor='black')
         #if methodIdx == len(myutils.settings)-1:
         #    ax.bar(positions, baseline, width=.075, color='grey', alpha=.5, linewidth=1, edgecolor='black', label='baseline')
         #else:
         #    ax.bar(positions, baseline, width=.075, color='grey', alpha=.5, linewidth=1, edgecolor='black')
         for x_val, y_val in zip(positions, baseline):
-            ax.plot([x_val, x_val], [0, y_val], color='black')
+            ax.plot([x_val-.056, x_val+.056], [y_val, y_val], color='black')
         if methodIdx == len(myutils.settings)-1:
             ax.plot([-5], [0], color='black', label='Baseline')
 

@@ -50,7 +50,7 @@ for methodIdx, method in enumerate(myutils.names):
     #positions[0] = positions[0]-.2
     ax.bar(positions, observed, width=.15, color='#' + colors[methodIdx], label=method)
     for x_val, y_val in zip(positions, baseline):
-        ax.plot([x_val, x_val], [0, y_val], color='black')
+        ax.plot([x_val-.07, x_val+.07], [y_val, y_val], color='black')
 
 ax.set_xticks([0,1,2])
 setTicks(ax, ['English', 'Finnish', 'Turkish'])
