@@ -2,6 +2,7 @@ settings = ['bpe-mr', 'bpe04V', 'wordpiece', 'spm', 'morf', 'manual']
 names = ['BPE-MR', 'BPE-V', 'WP', 'SPM', "Morfessor", 'Manual']
 datasets = ['aalto_3lang', 'hr_19lang', 'lr_13lang']
 seeds = [1,2,3,4,5]
+colors = ['#e899ea', '#c080c2', '#775178', '#a0ebea', '#86c3c2', '#33a75e']
 
 # 1,3,2 = reflectional + translational? it is caught in the second part here
 def is_translational_symmetric(composition):

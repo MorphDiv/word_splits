@@ -41,17 +41,17 @@ for line in open('upper_angle_values/aalto_3lang_angle_real_vs_random_5seeds.csv
 
 
 fig, ax = plt.subplots(figsize=(8,5), dpi=300)
-colors = ['e899ea', 'c080c2', '775178', 'a0ebea', '86c3c2', '33a75e']
 for methodIdx, method in enumerate(myutils.names):
     observed = [scores[method][lang] for lang in ['English', 'Finnish', 'Turkish']]
     baseline = [baselines[method][lang] for lang in ['English', 'Finnish', 'Turkish']]
     baseline = [sum(x)/len(x) for x in baseline]
     positions = [.125+ i + methodIdx * .15 for i in range(len(observed))]
     #positions[0] = positions[0]-.2
-    ax.bar(positions, observed, width=.15, color='#' + colors[methodIdx], label=method)
+    ax.bar(positions, observed, width=.15, color=myutils.colors[methodIdx], label=method)
     for x_val, y_val in zip(positions, baseline):
         ax.plot([x_val-.07, x_val+.07], [y_val, y_val], color='black')
 
+ax.set_ylim([0,135])
 ax.set_xticks([0,1,2])
 setTicks(ax, ['English', 'Finnish', 'Turkish'])
 
