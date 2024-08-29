@@ -47,13 +47,16 @@ for methodIdx, method in enumerate(myutils.names):
     baseline = [sum(x)/len(x) for x in baseline]
     positions = [.125+ i + methodIdx * .15 for i in range(len(observed))]
     #positions[0] = positions[0]-.2
-    ax.bar(positions, observed, width=.15, color=myutils.colors[methodIdx], label=method)
-    for x_val, y_val in zip(positions, baseline):
-        ax.plot([x_val-.07, x_val+.07], [y_val, y_val], color='black')
+    avg_observed = sum(observed)/len(observed)
+    avg_baseline = sum(baseline)/len(baseline)
+    
+    ax.bar([methodIdx], avg_observed, color=myutils.colors[methodIdx], label=method)
+    ax.plot([methodIdx-.39, methodIdx+.39], [avg_baseline, avg_baseline], color='black')
 
 ax.set_ylim([0,135])
-ax.set_xticks([0,1,2])
-setTicks(ax, ['English', 'Finnish', 'Turkish'])
+ax.set_xticks(range(len(myutils.names)))
+ax.set_xticklabels(myutils.names)
+#setTicks(ax, myutils.names)
 
 #leg = ax.legend()
 #leg.get_frame().set_linewidth(1.5)

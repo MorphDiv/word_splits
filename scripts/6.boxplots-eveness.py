@@ -55,7 +55,7 @@ for setting_idx, setting in enumerate(myutils.settings):
     fill_color = myutils.colors[setting_idx]
     for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
         plt.setp(bp[element], color=edge_color)
-    for patch, color in zip(bp['boxes'], colors):
+    for patch, color in zip(bp['boxes'], myutils.colors):
         patch.set_facecolor(fill_color)
 
 
